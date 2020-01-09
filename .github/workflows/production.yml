@@ -1,0 +1,24 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build-testing:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+          
+    - uses: Azure/k8s-set-context@v1
+      with:
+        kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+    - uses: azure/k8s-bake@v1
+      with:
+        renderEngine: 'kustomize'
+        kustomizationPath: './overlays/production'
+        kubectl-version: 'latest'
+        id: kustomize
+
+    - uses: Azure/k8s-deploy@v1
+      with:
+        manifests: ${{ steps.kustomize.outputs.manifestsBundle }}
