@@ -1,0 +1,8 @@
+# Dummy CRD to get cluster name and use with vars
+# https://github.com/kubernetes-sigs/kustomize/blob/master/docs/fields.md#vars
+apiVersion: cluster.gyg.io/v1
+kind: Cluster
+metadata:
+  name: default
+spec:
+  clusterName: testing1

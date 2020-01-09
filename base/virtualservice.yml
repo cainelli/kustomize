@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: integrator
+  namespace: integrator
+spec:
+  gateways:
+    - smart/ingress-gateway
+    - mesh
+  hosts:
+    - integrator.domain.com
+  http:
+    - route:
+        - destination:
+            host: integrator.integrator.svc.cluster.local
+            port:
+              number: 3000

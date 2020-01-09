@@ -1,0 +1,17 @@
+resources:
+- ../base/
+- cluster.yml
+patchesStrategicMerge:
+- virtualservice.yml
+
+configurations:
+- configuration.yml
+
+vars:
+- name: CLUSTER_NAME
+  objref:
+    kind: Cluster
+    name: default
+    apiVersion: cluster.gyg.io/v1
+  fieldref:
+    fieldpath: spec.clusterName
